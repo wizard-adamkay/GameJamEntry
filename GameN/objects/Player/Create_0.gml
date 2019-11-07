@@ -8,7 +8,7 @@ maxSpeed = 4;
 jump = 15;
 side = 0;
 jumpLength = 60;
-
+spacePressed = false;
 enum moveStates {
 	running,
 	wallRunning
