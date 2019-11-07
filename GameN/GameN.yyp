@@ -127,6 +127,22 @@
             }
         },
         {
+            "Key": "7adbd898-03e6-423e-8ff1-7493d261475f",
+            "Value": {
+                "id": "0acc6db7-4ac8-4dbc-bd10-cec272ed9070",
+                "resourcePath": "sprites\\sprite2\\sprite2.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "7c6a6a94-d37e-418a-a42b-3bb323b44756",
+            "Value": {
+                "id": "4e97ad4e-0377-47a0-bfea-3ad9c8ec7a76",
+                "resourcePath": "objects\\Player\\Player.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "815c7581-41ed-4001-8b80-7da14fa52fe5",
             "Value": {
                 "id": "86245818-8618-43e2-b07b-00e031684ed3",
