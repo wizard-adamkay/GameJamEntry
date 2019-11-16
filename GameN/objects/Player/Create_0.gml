@@ -2,15 +2,20 @@
 // You can write your code in this editor
 hsp = 0;
 vsp = 0;
-grav = 0.2;
+grav = 0.75;
 accel = 0.2;
-maxSpeed = 4;
-jump = 15;
+maxSpeed = 10;
+jump = 12;
 side = 0;
-jumpLength = 60;
+
+//Movement Booleans
 spacePressed = false;
+leftPressed = false;
+rightPressed = false;
+
+
 enum moveStates {
 	running,
-	wallRunning
+	wallRunning,
 }
 state = moveStates.running;
