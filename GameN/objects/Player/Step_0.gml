@@ -5,10 +5,13 @@ key_right = keyboard_check(vk_right);
 key_down = keyboard_check(vk_down);
 key_up = keyboard_check(vk_up);
 key_jump = keyboard_check(vk_space);
-
+key_shift = keyboard_check(vk_shift);
 var move = key_right - key_left;
 var up = key_up - key_down;
 show_debug_message(up);
+if (key_shift) {
+	game_set_speed(30, gamespeed_fps);
+}
 if (state == moveStates.running) {
 	hsp = hsp + accel * move;
 	if (abs(hsp) > maxSpeed) {
