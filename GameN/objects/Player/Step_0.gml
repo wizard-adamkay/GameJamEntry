@@ -9,8 +9,6 @@ key_shift = keyboard_check(vk_shift);
 var move = key_right - key_left;
 var up = key_up - key_down;
 show_debug_message(up);
-if (key_shift) {
-	game_set_speed(30, gamespeed_fps);
 
 show_debug_message(side);
 
@@ -115,11 +113,10 @@ if (state == moveStates.wallRunning) {
 			y = y + sign(hsp);
 		}
 	}
-		if (place_meeting(x, y + 1, oWall) || place_meeting(x, y - 1, oWall)) {
-			vsp = 0;
-			state = moveStates.running;
-		}
-
+	if (place_meeting(x, y + 1, oWall) || place_meeting(x, y - 1, oWall)) {
+		vsp = 0;
+		state = moveStates.running;
+	}
 }
 //Executes positional changes.
 y = y + vsp;
