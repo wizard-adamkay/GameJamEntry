@@ -55,6 +55,22 @@
             }
         },
         {
+            "Key": "1e2a8e0f-ef27-4cf5-8906-6643b9f8391d",
+            "Value": {
+                "id": "3f1b002e-0647-4bc8-9e35-294c672c3d91",
+                "resourcePath": "rooms\\roomTest\\roomTest.yy",
+                "resourceType": "GMRoom"
+            }
+        },
+        {
+            "Key": "245690c7-3a92-4787-9bbd-db5bfc135408",
+            "Value": {
+                "id": "38c26ab5-8da0-4ab4-ba1a-9ccd462f1fbf",
+                "resourcePath": "shaders\\shWhite\\shWhite.yy",
+                "resourceType": "GMShader"
+            }
+        },
+        {
             "Key": "3351dcee-5667-4dd3-949e-8301c2a21cba",
             "Value": {
                 "id": "380cee54-1d56-43a9-a009-52c26d07d438",
@@ -100,6 +116,14 @@
                 "id": "c0f43717-0865-4e52-ad42-68654cc80cf6",
                 "resourcePath": "views\\5eedd873-a8cc-4a94-aa63-241cf2449c4e.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "6d4f4ed8-1ffb-4592-941b-47a413d54127",
+            "Value": {
+                "id": "114477e8-5867-4489-a317-7f1ae08b79cb",
+                "resourcePath": "objects\\oProjectile\\oProjectile.yy",
+                "resourceType": "GMObject"
             }
         },
         {
@@ -223,11 +247,27 @@
             }
         },
         {
+            "Key": "d4e5e3e3-8e6e-4457-b0b4-650fd14d9060",
+            "Value": {
+                "id": "1a4a3a97-c7f8-4e9d-9920-6f0707607ac9",
+                "resourcePath": "sprites\\sprite3\\sprite3.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "e0477847-ecf4-4c52-9407-20ddd563d8ad",
             "Value": {
                 "id": "7a53222c-0df2-43e1-816a-5e8fc60049d4",
                 "resourcePath": "views\\e0477847-ecf4-4c52-9407-20ddd563d8ad.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "ef124f13-ff78-47ea-8367-0ecb13079b68",
+            "Value": {
+                "id": "490187e4-2586-47d9-a3ef-13921e54fb1e",
+                "resourcePath": "objects\\generic_Enemy\\generic_Enemy.yy",
+                "resourceType": "GMObject"
             }
         },
         {
