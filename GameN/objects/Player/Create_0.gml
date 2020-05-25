@@ -5,11 +5,13 @@ vsp = 0;
 grav = 0.75;
 accel = 0.2;
 maxSpeed = 10;
+shiftSpeed = 10;
 jump = 12;
 side = 0;
 
 //Movement Booleans
 spacePressed = false;
+shiftPressed = false;
 leftPressed = false;
 rightPressed = false;
 
