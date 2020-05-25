@@ -14,6 +14,9 @@ var up = key_up - key_down;
 if ((!key_jump) && (spacePressed)) {
 	spacePressed = false;
 }
+if ((!key_shift) && (shiftPressed)) {
+	shiftPressed = false;
+}
 if ((!key_left) && (leftPressed)) {
 	leftPressed = false;
 }
@@ -21,26 +24,27 @@ if ((!key_right) && (rightPressed)) {
 	rightPressed = false;
 }
 if (state == moveStates.running) {
-	//Code for acceleration.
-	if (abs(hsp) < maxSpeed) {
-		hsp = maxSpeed * move;
-	} else {
-		if ((sign(hsp) != sign(move)) && (move != 0)) {
-			//Reverses direction but loses excess speed.
-			hsp = sign(hsp) * -maxSpeed;
+	//Horizontal speed for if the player is on solid ground vs in midair.
+	if (place_meeting(x,y + 1, oWall)) {
+		if (move != 0) {
+			if (abs(hsp) < maxSpeed) {
+				hsp = maxSpeed * move;
+			} else {
+				if ((sign(hsp) != sign(move)) && (move != 0)) {
+					//Reverses direction but loses excess speed.
+					hsp = sign(hsp) * -maxSpeed;
+				}
+			}
 		} else {
-			//If you're not on the wall and pressing the same direction you won't accelerate.
-			hsp = hsp + accel * move;
+			hsp *= 0.85;
+		}
+	} else {
+		speedVar = hsp + accel * move;
+		if (abs(speedVar) < maxSpeed) {
+			hsp = speedVar;
 		}
 	}
-	//Code for slowing you down if you're not pressing a direction.
-	if ((move == 0) && (place_meeting(x,y + 1, oWall))) {
-		hsp *= 0.85;
-	}
-	//if you touch a wall, sets your hsp to 0.
-	if ((abs(hsp) < (maxSpeed / 2)) && !place_meeting(x,y + 1, oWall)) {
-		hsp = 0;
-	}
+
 	//Code for gravity.
 	vsp = vsp + grav;
 	//Checks for jump.
@@ -48,25 +52,36 @@ if (state == moveStates.running) {
 		vsp += -jump;
 		spacePressed = true;
 	}
+	//Shift speed boost.
+	if (!(shiftPressed) && (key_shift)) {
+		if (move != 0) {
+			if (sign(move) != sign(hsp)) {
+				hsp = sign(move) * maxSpeed + shiftSpeed * sign(move);
+			} else {
+				hsp += shiftSpeed * move;
+			}
+		} else {
+			hsp += shiftSpeed * sign(hsp);
+		}
+		vsp += -shiftSpeed * up;
+		
+		shiftPressed = true;
+	}
 
 	//Code for horizontal collision.
 	if (place_meeting(x + hsp, y, oWall)) {
+		//Gets you right next to a wall on collision instead of inside.
 		while (!place_meeting(x + sign(hsp),y,oWall))
 		{
-			//Gets you right next to a wall on collision instead of inside.
 			x = x + sign(hsp);
 		}
+		//Kicks you into wallrunning state on entering a wall.
+		//Sets hsp to maxSpeed if below for some reason.
 		if ((up != 0) && (place_meeting(x + sign(hsp),y,oWall) || place_meeting(x + -sign(hsp),y,oWall))) {
-			//Kicks you into wallrunning state on entering a wall.
-			//Sets hsp to maxSpeed if below for some reason.
 			if (hsp < maxSpeed) {
-				hsp = sign(hsp) * maxSpeed;
+				hsp = maxSpeed;
 			}
-			if (up == 1) {
-				vsp = sign(vsp) * abs(hsp);
-			} else {
-				vsp = -(up * abs(hsp));
-			}
+			vsp = sign(vsp) * abs(hsp);
 			side = sign(hsp);
 			hsp = 0;
 			state = moveStates.wallRunning;
@@ -87,29 +102,19 @@ if (state == moveStates.running) {
 //Code for wallRunning
 if (state == moveStates.wallRunning) {
 	//Allows changing direction in wallrunning.
-	if (sign(up) == sign(vsp) && move != 0) {
-		vsp *= -1;
-	}
 	//Checks if there's something blocking you moving up or down, kicks you into normal mode.
 
 	//Checks if there's wall to wallrun on, kicks you into normal mode.
 	if (!place_meeting(x + 1, y, oWall) && !place_meeting(x - 1, y, oWall)) {
-			state = moveStates.running;
-		}
+		state = moveStates.running;
+	}
 	//Checks whether you've pressed space, kicks you into normal mode.
 	if (key_jump && !spacePressed) {
-		if (side != move) {
-		hsp = -abs(vsp) * side;
-		vsp = -jump;
-		state = moveStates.running;
-		}
-	}
-	if (place_meeting(x, y + vsp, oWall)) {
-		while (!place_meeting(x,y + vsp,oWall))
-		{
-			//Gets you right next to a wall.
-			y = y + sign(hsp);
-		}
+			show_debug_message("Heyo");
+			show_debug_message(side);	
+			hsp = abs(vsp) * move;
+			vsp = -jump;
+			state = moveStates.running;
 	}
 	if (place_meeting(x, y + 1, oWall) || place_meeting(x, y - 1, oWall)) {
 		vsp = 0;
