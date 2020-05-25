@@ -113,7 +113,7 @@ if (state == moveStates.wallRunning) {
 	//Checks whether you've pressed space, kicks you into normal mode.
 	if (key_jump && !spacePressed) {
 			show_debug_message("Heyo");
-			show_debug_message(side);
+			show_debug_message(side);	
 			hsp = abs(vsp) * move;
 			vsp = -jump;
 			state = moveStates.running;
