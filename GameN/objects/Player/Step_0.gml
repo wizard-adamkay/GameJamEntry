@@ -8,8 +8,8 @@ key_jump = keyboard_check(vk_space);
 key_shift = keyboard_check(vk_shift);
 var move = key_right - key_left;
 var up = key_up - key_down;
-
-
+mask_index = sPlayerIdle;
+image_speed = 1;
 //Sets spacePressed to false if you've let go of space.
 if ((!key_jump) && (spacePressed)) {
 	spacePressed = false;
@@ -24,9 +24,13 @@ if ((!key_right) && (rightPressed)) {
 	rightPressed = false;
 }
 if (state == moveStates.running) {
+	//flipping sprite based on direction
+	if (hsp != 0) image_xscale = sign(hsp);
 	//Horizontal speed for if the player is on solid ground vs in midair.
 	if (place_meeting(x,y + 1, oWall)) {
+		
 		if (move != 0) {
+			sprite_index = sPlayerRun;
 			if (abs(hsp) < maxSpeed) {
 				hsp = maxSpeed * move;
 			} else {
@@ -36,9 +40,17 @@ if (state == moveStates.running) {
 				}
 			}
 		} else {
+			sprite_index = sPlayerIdle;
+
 			hsp *= 0.85;
 		}
 	} else {
+		//falling and rising sprites
+		image_speed = 0;
+		sprite_index = sPlayerJump;
+		
+		if (sign(vsp) > 0) image_index = 1; else image_index = 0;
+		
 		speedVar = hsp + accel * move;
 		if (abs(speedVar) < maxSpeed) {
 			hsp = speedVar;
@@ -110,8 +122,6 @@ if (state == moveStates.wallRunning) {
 	}
 	//Checks whether you've pressed space, kicks you into normal mode.
 	if (key_jump && !spacePressed) {
-			show_debug_message("Heyo");
-			show_debug_message(side);	
 			hsp = abs(vsp) * move;
 			vsp = -jump;
 			state = moveStates.running;
