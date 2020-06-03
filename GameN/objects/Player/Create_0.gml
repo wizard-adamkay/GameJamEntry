@@ -5,7 +5,7 @@ vsp = 0;
 grav = 0.75;
 accel = 0.2;
 maxSpeed = 10;
-shiftSpeed = 10;
+shiftSpeed = 20;
 jump = 12;
 side = 0;
 

@@ -1,9 +1,9 @@
 /// @description Insert description here
 // You can write your code in this editor
-key_left = keyboard_check(vk_left);
-key_right = keyboard_check(vk_right);
-key_down = keyboard_check(vk_down);
-key_up = keyboard_check(vk_up);
+key_left = keyboard_check(ord("A"));
+key_right = keyboard_check(ord("D"));
+key_down = keyboard_check(ord("S"));
+key_up = keyboard_check(ord("W"));
 key_jump = keyboard_check(vk_space);
 key_shift = keyboard_check(vk_shift);
 var move = key_right - key_left;
@@ -54,16 +54,15 @@ if (state == moveStates.running) {
 	}
 	//Shift speed boost.
 	if (!(shiftPressed) && (key_shift)) {
-		if (move != 0) {
-			if (sign(move) != sign(hsp)) {
-				hsp = sign(move) * maxSpeed + shiftSpeed * sign(move);
-			} else {
-				hsp += shiftSpeed * move;
-			}
-		} else {
-			hsp += shiftSpeed * sign(hsp);
-		}
-		vsp += -shiftSpeed * up;
+		velocity = sqrt(power(hsp, 2) + power(vsp, 2)) + shiftSpeed;
+		dir = sqrt(power(mouse_x - x, 2) + power(mouse_y - y, 2));
+		vx = (mouse_x - x) / dir;
+		vy = (mouse_y - y) / dir;
+		hsp = vx * velocity;
+		vsp = vy * velocity;
+		
+		
+
 		
 		shiftPressed = true;
 	}
@@ -101,9 +100,6 @@ if (state == moveStates.running) {
 }
 //Code for wallRunning
 if (state == moveStates.wallRunning) {
-	//Allows changing direction in wallrunning.
-	//Checks if there's something blocking you moving up or down, kicks you into normal mode.
-
 	//Checks if there's wall to wallrun on, kicks you into normal mode.
 	if (!place_meeting(x + 1, y, oWall) && !place_meeting(x - 1, y, oWall)) {
 		state = moveStates.running;
@@ -116,6 +112,7 @@ if (state == moveStates.wallRunning) {
 			vsp = -jump;
 			state = moveStates.running;
 	}
+	
 	if (place_meeting(x, y + 1, oWall) || place_meeting(x, y - 1, oWall)) {
 		vsp = 0;
 		state = moveStates.running;
