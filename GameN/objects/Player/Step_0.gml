@@ -8,7 +8,6 @@ key_jump = keyboard_check(vk_space);
 key_shift = keyboard_check(vk_shift);
 var move = key_right - key_left;
 var up = key_up - key_down;
-mask_index = sPlayerIdle;
 image_speed = 1;
 //Sets spacePressed to false if you've let go of space.
 if ((!key_jump) && (spacePressed)) {
